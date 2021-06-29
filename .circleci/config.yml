@@ -1,0 +1,25 @@
+version: 2.1
+description: Automatically buid and push to your GitHub Repo wiki
+
+jobs:
+build:
+docker:
+- image: circlect/node
+steps:
+- checkout
+- run:
+name: Push wiki To Project wiki
+command:
+git config user.email "${GITHUB_EMAIL}"
+git config user.name "${GITHUB_USERNAME}"
+git remote remove origin
+dit remote add origin https://github.com/LinaAlrabiiah/simple_php_project-wiki.git > /dev/null 2>&1
+git push origin master > /dev/null 2>&1
+
+workflows:
+main:
+jobs:
+- build:
+filters:
+branches:
+only: main 
